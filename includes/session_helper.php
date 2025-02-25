@@ -1,7 +1,4 @@
 <?php
-require_once __DIR__ . '/../includes/session_helper.php';
-init_session();
-
 function init_session() {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -19,4 +16,7 @@ function require_login() {
         exit();
     }
 }
+
+// Initialize session on inclusion
+init_session();
 ?>

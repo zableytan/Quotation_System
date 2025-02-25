@@ -79,6 +79,9 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <li class="nav-item">
                         <a class="nav-link" href="overall_product_history.php">Overall History</a>
                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="list_events.php">Manage Events</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="logout.php">Logout</a>
                     </li>

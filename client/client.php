@@ -56,7 +56,12 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php foreach ($products as $product): ?>
                     <tr>
                         <td>
-                            <input type="checkbox" name="products[<?php echo $product['id']; ?>][selected]" value="<?php echo $product['id']; ?>" data-product-id="<?php echo $product['id']; ?>">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="products[<?php echo $product['id']; ?>][selected]" value="<?php echo $product['id']; ?>" data-product-id="<?php echo $product['id']; ?>" id="product-<?php echo $product['id']; ?>">
+                                <label class="form-check-label" for="product-<?php echo $product['id']; ?>">
+                                    Select
+                                </label>
+                            </div>
                         </td>
                         <td><?php echo htmlspecialchars($product['product_name']); ?></td>
                         <td><?php echo htmlspecialchars($product['description']); ?></td>
@@ -67,7 +72,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </span>
                         </td>
                         <td>
-                            <input type="number" class="quantity-input" name="products[<?php echo $product['id']; ?>][quantity]" value="1" min="1" max="<?php echo $product['quantity']; ?>" data-product-id="<?php echo $product['id']; ?>">
+                            <input type="number" class="quantity-input" name="products[<?php echo $product['id']; ?>][quantity]" value="1" min="1" max="<?php echo $product['quantity']; ?>" data-product-id="<?php echo $product['id']; ?>" aria-labelledby="quantity-<?php echo $product['id']; ?>">
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -83,10 +88,9 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </button>
 
         <!-- Message Display Area -->
-        <div id="preOrderMessage" class="message"></div>
+        <div id="preOrderMessage" class="message" role="alert"></div>
     </div>
-
-    <!-- Pre-Order Modal -->
+<!-- Pre-Order Modal -->
     <div class="modal fade" id="preOrderModal" tabindex="-1" aria-labelledby="preOrderModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -111,6 +115,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <!-- Hidden inputs for selected product IDs and quantities -->
                         <input type="hidden" name="selected_products" id="selectedProducts">
                         <input type="hidden" name="quantities" id="quantities">
+                        <input type="hidden" name="csrf_token" id="csrfToken" value="<?php echo bin2hex(random_bytes(32)); ?>">
                         <div class="d-grid">
                             <button type="button" class="btn btn-primary" onclick="submitPreOrder()">Submit Pre-Order</button>
                         </div>
